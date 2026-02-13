@@ -1,101 +1,107 @@
-# NorthAi
-📘 NorthAi
+# 📘 NorthAi
 
-Projeto Python simples de assistente de IA baseado no modelo Gemini da Google. Ele funciona em terminal, recebe entradas do usuário e responde usando uma lógica de contexto para direcionar perguntas de forma eficiente.
+Assistente de IA em Python executado via terminal, utilizando o modelo Gemini da Google.  
+O foco do projeto é simples: **coletar contexto suficiente antes de entregar uma resposta final**.
 
-Objetivo: ajudar o usuário a encontrar a melhor resposta para sua dúvida — mas só quando tiver contexto suficiente (senão, faz perguntas para coletar mais informações).
+A proposta não é apenas responder perguntas, mas direcionar soluções com base em informações completas.
 
-Estrutura do Projeto
+---
 
-O repositório contém:
+## 🧠 Objetivo
 
-NorthAi
-├── .gitattributes
+O NorthAi foi desenvolvido para funcionar como um assistente orientado a contexto.
+
+Ele estrutura a conversa com base em três pontos fundamentais:
+
+- 🎯 Objetivo do usuário  
+- 🛠️ Ferramentas / ambiente disponível  
+- 📍 Situação atual  
+
+Enquanto essas informações não estiverem completas, o sistema continua perguntando.  
+Quando o contexto está claro, ele entrega uma resposta organizada e direcionada.
+
+---
+
+## 📂 Estrutura do Projeto
+
+NorthAi/
+│
+├── main.py
+├── prompt.txt
 ├── README.md
-├── main.py        ← script principal
-└── prompt.txt     ← exemplos e instruções de prompt
+└── .gitattributes
 
-O que o código faz
 
-O script main.py:
+### `main.py`
+Script principal da aplicação.  
+Responsável por:
 
-Exibe um banner estilizado usando pyfiglet com o texto “NORTH”.
+- Exibir o banner "NORTH" no terminal
+- Inicializar o cliente da API Gemini
+- Gerenciar o loop de interação com o usuário
+- Aplicar a lógica de coleta de contexto
 
-Se conecta à API de IA da Google através do pacote google.genai.
+### `prompt.txt`
+Arquivo que contém a base estratégica de comportamento da IA:
 
-Cria um loop interativo no terminal:
+- Diretrizes de extração de contexto
+- Organização esperada das respostas
+- Modelo estrutural de interação
 
-O usuário digita um texto.
+---
 
-O script envia esse texto para o modelo de IA pedir contexto (objetivo + ambiente + situação atual).
+## 🚀 Funcionamento
 
-Se não houver contexto completo, o bot pede mais informações.
+### 1️⃣ Inicialização
 
-Quando tiver tudo, o bot tenta dar uma resposta de acordo com o que foi informado.
+Ao executar o programa:
 
-Tudo isso é feito usando a API de chats da Google (modelo "gemini-3-flash-preview") e lógica de prompts definida no próprio código.
+- Um banner estilizado aparece no terminal.
+- A API Gemini é configurada usando a variável de ambiente.
+- O sistema entra em modo interativo.
 
-Como funciona a lógica
+---
 
-O fluxo principal do main.py funciona assim:
+### 2️⃣ Fluxo de Conversa
 
-1. Inicialização
+O funcionamento segue este padrão:
 
-O programa:
+1. O usuário envia uma mensagem.
+2. A IA analisa a entrada.
+3. Se faltar contexto → faz perguntas adicionais.
+4. Quando tiver informações suficientes → responde de forma estruturada.
 
-Importa pacotes (google.genai, pyfiglet, etc.).
+Essa abordagem reduz respostas superficiais e melhora a precisão.
 
-Mostra “NORTH” com fonte slant.
+---
 
-Inicializa o cliente da Google com a variável de ambiente GEMINI_API_KEY.
+## 🛠️ Tecnologias Utilizadas
 
-Importante: A variável GEMINI_API_KEY precisa estar definida no ambiente antes de rodar.
+- Python
+- `google.genai`
+- `pyfiglet`
+- Modelo Gemini via API
 
-2. Prompt principal
+---
 
-O prompt define regras:
+## ⚙️ Pré-requisitos
 
-O assistente deve descobrir objetivo, ferramentas/contexto e situação atual do usuário.
+Antes de executar o projeto:
 
-Só responde de forma final quando tiver informações completas.
+- Python 3 instalado
+- Chave de API Gemini
+- Variável de ambiente configurada
 
-Caso contrário, faz perguntas de forma clara para coletar dados.
+Exemplo (Linux/macOS):
 
-Isso cria um assistente que não “responde instantaneamente”, mas tenta entender o contexto completo primeiro.
-
-prompt.txt — base de instruções
-
-O arquivo prompt.txt mostra exemplos e regras do processo de extração de contexto:
-
-Define como a resposta deve ser guiada.
-
-Mostra uma estrutura ideal de resposta orientada a contexto.
-
-Exemplifica como o assistente deve interagir para obter a informação correta.
-
-Esse arquivo funciona como linha de base para entender a abordagem do bot.
-
-Como usar
-
-Clone o repositório:
+```bash
+export GEMINI_API_KEY="sua_chave_aqui" '''bash
 
 git clone https://github.com/rafaelpiva1243/NorthAi
 
-
-Instale dependências:
+cd NorthAi
 
 pip install google-ai pyfiglet
 
-
-Defina a chave da Google GenAI no ambiente:
-
-export GEMINI_API_KEY="sua_chave_aqui"
-
-
-Rode o bot:
-
 python main.py
 
-
-Comece a digitar perguntas no terminal!
- 
