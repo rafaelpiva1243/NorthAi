@@ -95,7 +95,7 @@ Antes de executar o projeto:
 Exemplo (Linux/macOS):
 
 ```bash
-export GEMINI_API_KEY="sua_chave_aqui" '''bash
+export GEMINI_API_KEY="sua_chave_aqui"
 
 git clone https://github.com/rafaelpiva1243/NorthAi
 
