@@ -1,7 +1,7 @@
 from config.prompts import instruction, contextExtrator
 from google.genai import types
 import json
-from core.cliente import chat
+from core.cliente import Cliente
 
 message = None
 
@@ -14,7 +14,8 @@ configResp = types.GenerateContentConfig(
     )
 
 contextoData = []
-context = chat.send_message(message, config=configContex)
+
+context = Cliente.chat.send_message(message, config=configContex)
 
 try:
     raw_text = context.text.strip()
