@@ -3,35 +3,26 @@ from google.genai import types
 import json
 from core.cliente import Cliente
 
-message = None
-
-configContex = types.GenerateContentConfig(
-    system_instruction=contextExtrator
-)
-
-configResp = types.GenerateContentConfig(
-        system_instruction=instruction
-    )
-
-contextoData = []
-
-context = Cliente.chat.send_message(message, config=configContex)
-
-try:
-    raw_text = context.text.strip()
-    contextJson = json.loads(raw_text)
-    contextoData.append(contextJson)
-except:
-    print("Erro ao gerar json")
-
-if contextoData[0]["objetivo"] == "" or contextoData[0]["ferramentas/ambiente/contexto"] == " " or contextoData[0]["momento/situação_atual"] == "":
-        prompt = f"""
-            O usuário não forneceu informações suficientes.
-            Pergunte APENAS sobre os campos que precisam de mais informações, de forma clara:
-        """
-        configRespContext = types.GenerateContentConfig(
-            system_instruction=prompt
+class Context():
+    
+    def __init__(self):
+        self.configContex = types.GenerateContentConfig(
+            system_instruction=contextExtrator
         )
-else:
-    pass    
 
+
+    def message(self, message):
+        contextJson = {}
+
+        context = Cliente.chat.send_message(message, config=self.configContex)
+
+        try:
+            raw_text = context.text.strip()
+            contextJson = json.loads(raw_text.strip())
+        except:
+            print("Erro ao gerar json")
+
+        if contextJson["objetivo"] == "" or contextJson["ferramentas/ambiente/contexto"] == " " or contextJson["momento/situação_atual"] == "":
+            return contextJson, False
+        else:
+            return contextJson, True
