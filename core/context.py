@@ -20,7 +20,7 @@ class Context():
             raw_text = context.text.strip()
             contextJson = json.loads(raw_text.strip())
         except:
-            print("Erro ao gerar json")
+            print("Erro ao gerar json", raw_text)
 
         if contextJson["objetivo"] == "" or contextJson["ferramentas/ambiente/contexto"] == " " or contextJson["momento/situação_atual"] == "":
             return contextJson, False
