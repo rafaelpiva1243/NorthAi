@@ -1,25 +1,27 @@
-from cliente import chat
-from context import configContex, configResp, configRespContext
+from core.cliente import chat
 from config.prompts import instruction
 from google.genai import types
 
-message = None
+class Chat():
 
+    def __init__(self):
+        self.prompt = f"""
+            O usuário não forneceu informações suficientes.
+            Pergunte APENAS sobre os campos que precisam de mais informações, de forma clara:
+        """
 
-prompt = f"""
-                O usuário não forneceu informações suficientes.
-                Pergunte APENAS sobre os campos que precisam de mais informações, de forma clara:
-            """
+        self.configResp = types.GenerateContentConfig(
+                system_instruction=instruction
+            )
 
-configResp = types.GenerateContentConfig(
-        system_instruction=instruction
-    )
+        self.configRespContext = types.GenerateContentConfig(
+            system_instruction=self.prompt
+        )
 
-configRespContext = types.GenerateContentConfig(
-    system_instruction=prompt
-)
+    def context(self, message):
+        res = chat.send_message_stream(message, config=self.configResp)
+        return res
 
-
-res = chat.send_message_stream(message, config=configResp)
-
-res = chat.send_message_stream(message, config=configRespContext )
+    def no_context(self, message):
+        res = chat.send_message_stream(message, config=self.configRespContext)
+        return res

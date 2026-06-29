@@ -2,7 +2,7 @@ from pyfiglet import Figlet
 
 class Ui():
 
-    def display():
+    def display(self):
         f = Figlet(font="slant") 
         print(f.renderText("NORTH"))
 
@@ -10,11 +10,3 @@ class Ui():
         print("")
         print("Para sair digite (exit)")
         print("")
-
-    
-
-    '''for i in res:
-            print(i.text)
-
-    for b in res:
-                print(b.text)'''
